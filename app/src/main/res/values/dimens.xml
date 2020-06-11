@@ -1,0 +1,5 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="design_navigation_icon_size" tools:override="true">32dp</dimen>
+    <dimen name="drawable_padding">10dp</dimen>
+</resources>

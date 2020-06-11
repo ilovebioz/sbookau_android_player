@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="color_res_main_list_catalog_item_title">#FFFFFF</color>
+    <color name="color_res_main_list_catalog_item_background">#484848</color>
+    <color name="color_res_main_list_divider">#BDBDBD</color>
+    <color name="color_res_main_list_catalog_item_book_counter">#757575</color>
+    <color name="color_res_main_list_catalog_item_pressed">#bdbdbd</color>
+    <color name="color_res_main_list_catalog_item_counter_book_background">#eceff1</color>
+    <color name="color_res_main_list_title_item_splitter">#ED3F11</color>
+    <color name="color_res_main_list_title_item_text">#FFFFFF</color>
+    <color name="color_res_main_list_title_item_background">#1976d2</color>
+
+    <color name="color_res_book_list_item_text">#FFFFFF</color>
+    <color name="color_res_book_list_item_background">#484848</color>
+    <color name="color_res_book_list_item_pressed">#696969</color>
+    <color name="color_res_book_list_item_selected">#bdbdbd</color>
+
+    <color name="color_res_audio_background">#484848</color>
+
+    <color name="color_res_audio_part_list_item_text">#FFFFFF</color>
+    <color name="color_res_audio_part_list_item_background">#484848</color>
+    <color name="color_res_audio_part_list_item_pressed">#7F7F7F</color>
+    <color name="color_res_audio_part_list_item_selected">#bdbdbd</color>
+
+    <color name="color_res_audio_controller_button_bg">#03a9f4</color>
+    <color name="color_res_audio_controller_text">#FFFFFF</color>
+    <color name="color_res_audio_controller_bg">#e0e0e0</color>
+    <color name="color_res_custom_image_medium_bg">#03a9f4</color>
+    <color name="color_res_custom_image_large_bg">#03a9f4</color>
+
+    <color name="color_res_custom_group_bg">#FFFFFF</color>
+    <color name="color_res_certificate_icon_true_bg">#00b300</color>
+    <color name="color_res_certificate_icon_false_bg">#FFFFFFFF</color>
+    <color name="color_res_login_google_icon_in_bg">#03a9f4</color>
+    <color name="color_res_login_google_icon_out_bg">#808080</color>
+
+    <color name="black_semi_transparent">#B2000000</color>
+    <color name="background">#e5e5e5</color>
+    <color name="half_black">#808080</color>
+    <color name="white">#fafafa</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="blue_semi_transparent">#805677fc</color>
+    <color name="blue_semi_transparent_pressed">#80738ffe</color>
+    <color name="colorGreenEucalyptus">#23AE4A</color>
+</resources>

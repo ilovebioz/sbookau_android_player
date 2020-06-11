@@ -1,0 +1,265 @@
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <!--What ever your want in center of screen, put it in  here -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <!-- Framelayout to display Fragments -->
+        <FrameLayout
+            android:id="@+id/frm_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <com.github.ybq.android.spinkit.SpinKitView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/pbr_main_loading_status"
+            style="@style/SpinKitView.Circle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            app:SpinKit_Color="@color/color_res_login_google_icon_in_bg" />
+    </RelativeLayout>
+    <!--What ever your want in the LEFT drawer, put it in  below RelativeLayout -->
+
+    <!-- LEFT DRAWER -->
+    <RelativeLayout
+        android:id="@+id/relLeftDrawer"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/color_res_main_list_catalog_item_background" >
+        <!-- Cover or Banner -->
+        <RelativeLayout
+            android:id="@+id/rlBanner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_gravity="center">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/books_banner_bg" />
+            <ImageButton
+                android:id="@+id/imbAccount"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/btn_custom_image_medium_bg"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/baseline_account_circle_white_48" />
+            <TextView
+                android:id="@+id/txtName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/imbAccount"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/txtEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:layout_below="@+id/txtName"
+                android:textStyle="italic"
+                android:layout_centerHorizontal="true"
+                />
+        </RelativeLayout>
+        <!-- Home Item -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rlBanner"
+            android:background="@android:drawable/list_selector_background"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:id="@+id/lltHome">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:src = "@drawable/ic_home"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_res_main_list_catalog_item_title"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp"
+                    android:text="@string/s_res_home_page" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_res_main_list_divider"/>
+        </LinearLayout>
+        <!-- History Item -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lltHome"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@android:drawable/list_selector_background"
+            android:id="@+id/lltHistory">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:src = "@drawable/ic_history_white_24dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_res_main_list_catalog_item_title"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp"
+                    android:text="@string/s_res_history" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_res_main_list_divider"/>
+        </LinearLayout>
+        <!-- Listening Item -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lltHistory"
+            android:orientation="vertical"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="@android:drawable/list_selector_background"
+            android:id="@+id/lltListening">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:src = "@drawable/ic_whats_hot"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_res_main_list_catalog_item_title"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp"
+                    android:text="@string/s_res_listening" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_res_main_list_divider"/>
+        </LinearLayout>
+        <!-- Catalog Item -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_below="@+id/lltListening"
+            android:orientation="vertical"
+            android:background="@color/color_res_main_list_title_item_background"
+            android:id="@+id/lltCatalog">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/color_res_main_list_title_item_splitter">
+                </View>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:textColor="@color/color_res_main_list_title_item_text"
+                    android:textSize="16sp"
+                    android:layout_weight="1"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"
+                    android:gravity="center_vertical"
+                    android:textStyle="bold"
+                    android:text="@string/s_res_catalog" />
+                <ImageView
+                    android:id="@+id/imvRefresh"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="10dp"
+                    android:gravity="center_vertical"
+                    android:background="@android:drawable/list_selector_background"
+                    android:src = "@drawable/ic_sync_white_24dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_res_main_list_divider"/>
+        </LinearLayout>
+
+        <!-- ListMenu -->
+        <ListView
+            android:id="@+id/lst_main_drawer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/lltCatalog"
+            android:layout_above="@id/lltFooter"
+            android:layout_gravity="start"
+            android:choiceMode="singleChoice"
+            android:divider="@color/color_res_main_list_divider"
+            android:dividerHeight="1dp"
+            android:listSelector="@drawable/main_list_catalog_item_selector"
+            android:background="@color/color_res_main_list_catalog_item_background"
+            android:scrollbarThumbVertical="@drawable/main_list_scrollbar"/>
+
+        <!-- Footer Item -->
+        <LinearLayout
+            android:id="@+id/lltFooter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true"
+            android:background="@color/color_res_main_list_title_item_background">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_res_main_list_divider"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="3dp" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/color_res_main_list_divider"/>
+        </LinearLayout>
+    </RelativeLayout>
+</androidx.drawerlayout.widget.DrawerLayout>

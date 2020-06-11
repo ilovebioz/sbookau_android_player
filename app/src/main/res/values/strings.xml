@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Sách Nói B4U</string>
+    <string name="s_res_ieev_website">www.ieev.org</string>
+    <string name="s_res_prefs_name">sbookau</string>
+    <string name="s_res_history">Lịch Sử Nghe</string>
+
+    <string name="s_res_listening">Đang Nghe</string>
+    <string name="s_res_refresh_catalog">Tải Lại Danh Mục</string>
+    <string name="s_res_home_page">Trang Chủ</string>
+    <string name="s_res_catalog">Danh Mục Truyện</string>
+    <string name="s_res_verion">Phiên bản</string>
+    <string name="s_res_pause">tạm dừng...</string>
+    <string name="s_res_play">nghe...</string>
+    <string name="s_res_ready_play">Sẵn Sàng Nghe...</string>
+    <string name="s_res_unavailable_book">Sách Không Tồn Tại</string>
+
+    <string name="s_res_play_setting_only_selected">Chỉ nghe phần đang chọn (mặc định)</string>
+    <string name="s_res_play_setting_to_end_list">Nghe từ phần đang chọn tới cuối</string>
+    <string name="s_res_play_setting_num_of_part">Nghe %d phần từ phần đang chọn</string>
+    <string name="s_res_play_setting_period">Chỉ nghe trong %1$d tiếng %2$d phút</string>
+    <string name="s_res_play_setting_set_schedule">Lập lịch nghe</string>
+
+    <string name="s_res_mess_clean_ok">Dọn dẹp thành công</string>
+    <string name="s_res_mess_clean_fail">Dọn dẹp thất bại</string>
+    <string name="s_res_mess_can_not_get_book_from_server">Không thể lấy dữ liệu sách từ máy chủ</string>
+    <string name="s_res_mess_system_busy">Hệ thống đang bận ...</string>
+    <string name="s_res_mess_update_fail">Cập nhật thất bại</string>
+    <string name="s_res_mess_download_file_fail">Tải file thất bại</string>
+    <string name="s_res_mess_delete_file_success">Xóa file hoàn tất</string>
+    <string name="s_res_mess_error">Hệ thống lỗi</string>
+    <string name="s_res_mess_report_fail">Khiếu nại nội dung thất bại</string>
+    <string name="s_res_mess_report_success">Cảm ơn! Chúng tôi sẽ kiểm tra và sớm sửa nội dung vừa khiếu nại</string>
+    <string name="s_res_mess_download_file_success">Tải file hoàn tất</string>
+    <string name="s_res_mess_download_file_start">Bắt đầu tải file</string>
+    <string name="s_res_mess_download_file_in_progress">Một file tải chưa xong</string>
+    <string name="s_res_mess_load_book_from_file_fail">Lấy sách từ file thất bại</string>
+    <string name="s_res_mess_update_success">Cập nhật thành công</string>
+    <string name="s_res_mess_suggest_book_fail">Yêu cầu sách thất bại</string>
+    <string name="s_res_mess_suggest_book_success">Chúng tôi sẽ sớm cập nhật sách bạn đề nghị</string>
+    <string name="s_res_mess_search_content_empty">Nội dung tìm kiếm rỗng</string>
+    <string name="s_res_mess_connect_fail">Kết nối thất bại, nhấn REFRESH để thử lại</string>
+    <string name="s_res_mess_back_again_to_exit">Nhấn BACK lần nữa để thoát</string>
+    <string name="s_res_mess_login_google">Đăng nhập với GOOGLE</string>
+    <string name="s_res_mess_logout_google">Bỏ đăng nhập với GOOGLE</string>
+    <string name="s_res_mess_invalid_book_name">Tên sách không hợp lệ</string>
+    <string name="s_res_mess_invalid_search_content">Nội dung tìm kiếm không hợp lệ</string>
+    <string name="s_res_mess_empty_keyword">Từ khóa rỗng</string>
+
+    <string name="menu_exit">Thoát Ra</string>
+    <string name="menu_refresh">Tải Mới</string>
+    <string name="menu_share">Chia Sẻ</string>
+    <string name="menu_rate">Đánh Giá</string>
+    <string name="menu_clean">Dọn Dẹp</string>
+
+    <string name="s_res_button_cancel">Bỏ qua</string>
+    <string name="s_res_button_save_schedule">Lưu lịch</string>
+
+    <string name="s_res_mess_permission_invalid">Bạn đã không cấp đủ quyền cần thiết để ứng dụng hoạt động</string>
+    <string name="s_res_mess_accept_full_permission">Bạn cần cấp đủ quyền cần thiết để ứng dụng hoạt động</string>
+    <string name="s_res_mess_must_grant_permission">Ứng dụng sẽ tự động tắt sau 5 giây vì thiếu quyền</string>
+
+</resources>

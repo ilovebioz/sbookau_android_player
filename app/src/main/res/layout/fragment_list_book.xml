@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:background="@color/color_res_audio_background"
+    tools:context="com.sectic.sbookau.BookListFragment">
+
+    <LinearLayout
+        android:id="@+id/lltSearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="3dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="1dp"
+        android:background="@drawable/custom_group_bg">
+
+        <EditText
+            android:id="@+id/txt_search_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Nội dung cần tìm"
+            android:singleLine="true"
+            android:backgroundTint="@color/colorGreenEucalyptus"
+            android:drawableLeft="@drawable/baseline_amp_stories_24"
+            android:drawableTint="@color/color_res_login_google_icon_out_bg"
+            android:drawablePadding="@dimen/drawable_padding"
+            android:inputType="text"/>
+        <ImageButton
+            android:id="@+id/btn_search_book"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/btn_custom_image_large_bg"
+            android:src="@drawable/ic_search_white_24dp" />
+    </LinearLayout>
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srlBookList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/lltSearch">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvBookList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:scrollbarThumbVertical="@drawable/book_list_scrollbar"/>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <ImageView
+        android:id="@+id/img_book_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/baseline_error_outline_white_48"
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"/>
+</RelativeLayout>
