@@ -64,17 +64,13 @@ public class AuthService extends AsyncTask<Void, Integer, Boolean > {
                         oConfig = new Configuration();
                     }
 
-                    if (!DefSetting.sRestServerUrl.equals(oConfig.serverUrl)) {
-                        DefSetting.sRestServerUrl = oConfig.serverUrl;
-                        //RestAPIServiceBuilder.ReInitRetrofit(oConfig.serverUrl);
-                    }
+                    DefSetting.sRestServerUrl = oConfig.serverUrl;
                     DefSetting.gSystemMessage = oConfig.message;
                     DefSetting.gLatestCodeStep = oConfig.latestCodeStep;
                     DefSetting.gCodeStepMessage = oConfig.codeStepMessage;
                 }
             }
             // login
-            //RestAPIService gitHubService = RestAPIServiceBuilder.retrofit.create(RestAPIService.class);
             RestAPIService gitHubService = RestAPIServiceBuilder.CreatRetrofitForAPI().create(RestAPIService.class);
             Call<User> call;
             if(AuthSetting.gLoginType.equals(DefSetting.ENUM_LOGIN_BASE)){
@@ -84,8 +80,10 @@ public class AuthService extends AsyncTask<Void, Integer, Boolean > {
                 call = gitHubService.loginGoogle(new User(AuthSetting.gGIdToken));
                 oUser = call.execute().body();
             }
-            DataHandler.saveUser( AppProvider.getContext(), oUser, DataHandler.genUserKey(AuthSetting.gSUsername, AuthSetting.gSPassword) );
-            AuthSetting.SetContent(oUser.token, oUser.username, oUser.displayName, oUser.userRight, oUser.id);
+            if(oUser != null) {
+                DataHandler.saveUser(AppProvider.getContext(), oUser, DataHandler.genUserKey(AuthSetting.gSUsername, AuthSetting.gSPassword));
+                AuthSetting.SetContent(oUser.token, oUser.username, oUser.displayName, oUser.userRight, oUser.id);
+            }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }catch (IOException e){

@@ -5,7 +5,7 @@ package com.sectic.sbookau.ultils;
  */
 
 public class DefSetting {
-    public static String sRestServerUrl = "http://192.168.200.185:8080/v1/";
+    public static String sRestServerUrl = "http://103.156.1.63/v1/";
     public static String gGoogleStoreUrl ="http://play.google.com/store/apps/details?id=%s";
     public static String gSystemMessage = "";
     public static int gLatestCodeStep = 0;
@@ -14,8 +14,8 @@ public class DefSetting {
     public static final int RC_SIGN_IN = 9001;
     public static final String SERVER_CLIENT_ID_FOR_GOOGLE_SERVICE = "393842627090-5acn4hfn1j7f776gni8sgjhequp8dh5i.apps.googleusercontent.com";
 
-    // dropbox account : binh.nguyen@ieev.org
-    public static final String gSConfigJsonUrl = "https://www.dropbox.com/s/nqy49hzphxn094c/slab-sbookau-config.json?dl=1";
+    // dropbox account : bionezero@gmail.com
+    public static final String gSConfigJsonUrl = "https://www.dropbox.com/s/f1ofl6e85179t10/slab-sbookau-config.json?dl=1";
     public static final String gSBookHistory = "book_history.json";
     public static final String gSJSONDataFilePattern = "%s.json";
     public static final String gSMediaFilePattern = "%s.%s";
