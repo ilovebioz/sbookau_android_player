@@ -45,10 +45,10 @@ public interface RestAPIService {
     @PUT("auth/books/{id}")
     Call<Book> updateBooks(@Header("x-access-token") String token, @Path("id") String sId, @Body Book book);
 
-    @GET("auth/audio_parts")
+    @GET("auth/book_parts")
     Call<AudioPartList> getBookParts(@Header("x-access-token") String token, @Query("filter") String sFilter, @Query("sort") String sSort,
                                      @Query("page") int page, @Query("perPage") int perPage);
-    @PUT("auth/audio_parts/{id}")
+    @PUT("auth/book_parts/{id}")
     Call<AudioPart> updateAudioParts(@Header("x-access-token") String token, @Path("id") String sId, @Body AudioPart audio);
 
     @POST("auth/messages/send_system")

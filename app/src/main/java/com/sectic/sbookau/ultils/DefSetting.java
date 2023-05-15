@@ -5,7 +5,7 @@ package com.sectic.sbookau.ultils;
  */
 
 public class DefSetting {
-    public static String sRestServerUrl = "http://103.156.1.63/v1/";
+    public static String sRestServerUrl = "https://dev-api.wetop.me/sbookau/v1/";
     public static String gGoogleStoreUrl ="http://play.google.com/store/apps/details?id=%s";
     public static String gSystemMessage = "";
     public static int gLatestCodeStep = 0;
