@@ -73,7 +73,7 @@ public class AuthService extends AsyncTask<Void, Integer, Boolean > {
             // login
             RestAPIService gitHubService = RestAPIServiceBuilder.CreatRetrofitForAPI().create(RestAPIService.class);
             Call<User> call;
-            if(AuthSetting.gLoginType.equals(DefSetting.ENUM_LOGIN_BASE)){
+            if(AuthSetting.gLoginType.equals(DefSetting.ENUM_LOGIN_BASE)) {
                 call = gitHubService.login(new User(AuthSetting.gSUsername, AuthSetting.gSPassword));
                 oUser = call.execute().body();
             }else{

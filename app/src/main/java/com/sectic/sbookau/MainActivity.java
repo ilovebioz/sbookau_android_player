@@ -322,11 +322,9 @@ public class MainActivity extends Activity {
 		if (oDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-		switch (item.getItemId()) {
-		case R.id.itm_menu_exit:
+        if (item.getItemId() == R.id.itm_menu_exit) {
             this.finish();
-			break;
-        case R.id.itm_menu_clean:
+        } else if (item.getItemId() == R.id.itm_menu_clean) {
             final CleanUpFileStorageService oCleanUpFileStorageService = new CleanUpFileStorageService();
             oCleanUpFileStorageService.oITaskCompleted = new CleanUpFileStorageService.OnTaskCompleted() {
                 @Override
@@ -339,8 +337,7 @@ public class MainActivity extends Activity {
                 }
             };
             oCleanUpFileStorageService.execute();
-            break;
-        case R.id.itm_menu_rate:
+        } else if (item.getItemId() == R.id.itm_menu_rate) {
             Uri uri = Uri.parse(String.format(DefSetting.gGoogleStoreUrl, this.getPackageName() ));
             Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
             try {
@@ -348,10 +345,7 @@ public class MainActivity extends Activity {
             } catch (ActivityNotFoundException e) {
                 e.printStackTrace();
             }
-            break;
-		default:
-			break;
-		}
+        }
 
         if(BuildConfig.enableDebugLogging) {
             Log.i(TAG, "onOptionsItemSelected");
@@ -428,7 +422,7 @@ public class MainActivity extends Activity {
         }else{
             fragment = BookListFragment.newInstance(null, sTextQuery, "CLOUD");
             getFragmentManager().beginTransaction().replace(R.id.frm_container, fragment).commit();
-            if(sTextQuery == null || sTextQuery.length() == 0){
+            if(sTextQuery == null || sTextQuery.isEmpty()){
                 setTitle(getString(R.string.s_res_mess_empty_keyword));
             }else{
                 setTitle(sTextQuery);

@@ -37,7 +37,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.github.ybq.android.spinkit.SpinKitView;
 import com.sectic.sbookau.adapter.AudioPartAdapter;
 import com.sectic.sbookau.model.UserBook;
@@ -54,6 +53,7 @@ import com.sectic.sbookau.service.GetAudioPartFromCloudService;
 import com.sectic.sbookau.ultils.BaseUtils;
 import com.sectic.sbookau.ultils.DefSetting;
 import com.sectic.sbookau.ultils.FileUtils;
+import com.sectic.sbookau.R;
 
 
 public class PlayingListActivity extends Activity implements OnClickListener, AudioManager.OnAudioFocusChangeListener {
@@ -694,174 +694,165 @@ public class PlayingListActivity extends Activity implements OnClickListener, Au
             }
             return;
         }
-        switch (view.getId()) {
-            case R.id.tbn_player_is_repeat:
-                oPlaySettingHandler.playSetting.setRepeat(!oPlaySettingHandler.playSetting.getRepeat());
-                savePrefSetting(true);
-                if(oPlaySettingHandler.playSetting.getRepeat()) {
-                    tbnRepeat.setImageResource(R.drawable.baseline_repeat_white_24);
-                }else{
-                    tbnRepeat.setImageResource(R.drawable.baseline_repeat_black_24);
-                }
-                break;
-            case R.id.btn_player_next_part:
-                int iNextPartIndex = oPlayingInfoHandler.getNextPart();
-                if(iNextPartIndex < 0)
-                {
-                    break;
-                }
+        if (view.getId() == R.id.tbn_player_is_repeat) {
+            oPlaySettingHandler.playSetting.setRepeat(!oPlaySettingHandler.playSetting.getRepeat());
+            savePrefSetting(true);
+            if(oPlaySettingHandler.playSetting.getRepeat()) {
+                tbnRepeat.setImageResource(R.drawable.baseline_repeat_white_24);
+            }else{
+                tbnRepeat.setImageResource(R.drawable.baseline_repeat_black_24);
+            }
+        } else if (view.getId() == R.id.btn_player_next_part) {
+            int iNextPartIndex = oPlayingInfoHandler.getNextPart();
+            if(iNextPartIndex >= 0)
+            {
                 bIsAutoStartPlay = true;
                 oPlayingInfoHandler.playingInfo.setCurPlayingPos(0);
                 selBookPartAndPrep2Play(iNextPartIndex);
-                break;
-            case R.id.btn_player_pre_part:
-                int iPrePartIndex = oPlayingInfoHandler.getPrePart();
-                if(iPrePartIndex < 0)
-                {
-                    break;
-                }
+            }
+        } else if (view.getId() == R.id.btn_player_pre_part) {
+            int iPrePartIndex = oPlayingInfoHandler.getPrePart();
+            if(iPrePartIndex >= 0)
+            {
                 bIsAutoStartPlay = true;
                 oPlayingInfoHandler.playingInfo.setCurPlayingPos(0);
                 selBookPartAndPrep2Play(iPrePartIndex);
-                break;
-            case R.id.btn_player_play:
-                if(oMediaPlayer != null)
+            }
+        } else if (view.getId() == R.id.btn_player_play) {
+            if(oMediaPlayer != null)
+            {
+                if(oMediaPlayer.isPlaying())
                 {
-                    if(oMediaPlayer.isPlaying())
-                    {
-                        actPlayOrPauseMedia(false, getString(R.string.s_res_pause));
+                    actPlayOrPauseMedia(false, getString(R.string.s_res_pause));
+                }else{
+                    actPlayOrPauseMedia(true, getString(R.string.s_res_play));
+                }
+            }
+        } else if (view.getId() == R.id.tbn_player_is_plan_setting) {
+            AlertDialog.Builder oDialogBuild = new AlertDialog.Builder(this);
+            oDialogBuild.setTitle(getString(R.string.s_res_play_setting_set_schedule));
+            oDialogBuild.setIcon(R.drawable.ic_btn_plan_off);
+
+            final LayoutInflater factory = getLayoutInflater();
+            final View oPlaySettingView = factory.inflate(R.layout.alertdialog_play_setting, null);
+
+            final RadioGroup chg_play_setting = oPlaySettingView.findViewById(R.id.grp_play_setting_mode);
+            final RadioButton chk_play_setting_only_selected = oPlaySettingView.findViewById(R.id.chk_play_setting_only_selected);
+            final RadioButton chk_play_setting_until_end_part = oPlaySettingView.findViewById(R.id.chk_play_setting_to_end_list);
+            final RadioButton chk_play_setting_n_part_from_cur = oPlaySettingView.findViewById(R.id.chk_play_setting_num_of_part);
+            final RadioButton chk_play_setting_period_from_cur = oPlaySettingView.findViewById(R.id.chk_play_setting_period);
+
+            final LinearLayout lltPart = oPlaySettingView.findViewById(R.id.lltParts);
+            final LinearLayout lltTime = oPlaySettingView.findViewById(R.id.lltTime);
+            final NumberPicker pkr_play_setting_n_part = oPlaySettingView.findViewById(R.id.pkr_play_setting_n_part);
+            final NumberPicker tpk_play_setting_stop_time = oPlaySettingView.findViewById(R.id.pkr_play_setting_end_time);
+
+            final TextView txt_play_setting_n_part_from_cur = oPlaySettingView.findViewById(R.id.txt_play_setting_n_part);
+            final TextView txt_play_setting_period_from_cur = oPlaySettingView.findViewById(R.id.txt_play_setting_end_time);
+
+            chg_play_setting.setOnCheckedChangeListener( new RadioGroup.OnCheckedChangeListener(){
+                @Override
+                public void onCheckedChanged (RadioGroup group, int checkedId){
+                    if (checkedId == R.id.chk_play_setting_num_of_part) {
+                        pkr_play_setting_n_part.setEnabled(true);
+                        txt_play_setting_n_part_from_cur.setEnabled(true);
+                        lltPart.setVisibility(View.VISIBLE);
+
+                        tpk_play_setting_stop_time.setEnabled(false);
+                        txt_play_setting_period_from_cur.setEnabled(false);
+                        lltTime.setVisibility(View.GONE);
+                    } else if (checkedId == R.id.chk_play_setting_period) {
+                        pkr_play_setting_n_part.setEnabled(false);
+                        txt_play_setting_n_part_from_cur.setEnabled(false);
+                        lltPart.setVisibility(View.GONE);
+
+                        tpk_play_setting_stop_time.setEnabled(true);
+                        txt_play_setting_period_from_cur.setEnabled(true);
+                        lltTime.setVisibility(View.VISIBLE);
                     }else{
-                        actPlayOrPauseMedia(true, getString(R.string.s_res_play));
+                        pkr_play_setting_n_part.setEnabled(false);
+                        txt_play_setting_n_part_from_cur.setEnabled(false);
+                        lltPart.setVisibility(View.GONE);
+
+                        tpk_play_setting_stop_time.setEnabled(false);
+                        txt_play_setting_period_from_cur.setEnabled(false);
+                        lltTime.setVisibility(View.GONE);
                     }
                 }
-                break;
+            });
 
-            case R.id.tbn_player_is_plan_setting:
-                AlertDialog.Builder oDialogBuild = new AlertDialog.Builder(this);
-                oDialogBuild.setTitle(getString(R.string.s_res_play_setting_set_schedule));
-                oDialogBuild.setIcon(R.drawable.ic_btn_plan_off);
+            chk_play_setting_only_selected.setChecked(oPlaySettingHandler.isPlayWithoutPlan());
+            chk_play_setting_n_part_from_cur.setChecked(oPlaySettingHandler.isPlayNPartFromCur());
+            chk_play_setting_n_part_from_cur.setText(String.format(getString(R.string.s_res_play_setting_num_of_part), oPlaySettingHandler.playSetting.getParts()));
+            chk_play_setting_until_end_part.setChecked(oPlaySettingHandler.isPlayUntilEndPart());
+            chk_play_setting_period_from_cur.setChecked(oPlaySettingHandler.isPlayPeriodFromCur());
+            chk_play_setting_period_from_cur.setText(String.format(getString(R.string.s_res_play_setting_period), oPlaySettingHandler.playSetting.getHours(), oPlaySettingHandler.playSetting.getMinutes()));
 
-                final LayoutInflater factory = getLayoutInflater();
-                final View oPlaySettingView = factory.inflate(R.layout.alertdialog_play_setting, null);
+            pkr_play_setting_n_part.setMaxValue(oPlayingInfoHandler.getMaxNPart());
+            pkr_play_setting_n_part.setMinValue(1);
+            pkr_play_setting_n_part.setValue(oPlaySettingHandler.playSetting.getParts());
+            pkr_play_setting_n_part.setWrapSelectorWheel(true);
 
-                final RadioGroup chg_play_setting = oPlaySettingView.findViewById(R.id.grp_play_setting_mode);
-                final RadioButton chk_play_setting_only_selected = oPlaySettingView.findViewById(R.id.chk_play_setting_only_selected);
-                final RadioButton chk_play_setting_until_end_part = oPlaySettingView.findViewById(R.id.chk_play_setting_to_end_list);
-                final RadioButton chk_play_setting_n_part_from_cur = oPlaySettingView.findViewById(R.id.chk_play_setting_num_of_part);
-                final RadioButton chk_play_setting_period_from_cur = oPlaySettingView.findViewById(R.id.chk_play_setting_period);
+            pkr_play_setting_n_part.setOnValueChangedListener( new NumberPicker.OnValueChangeListener() {
+                @Override
+                public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                    chk_play_setting_n_part_from_cur.setText(String.format(getString(R.string.s_res_play_setting_num_of_part), newVal));
+                }
+            });
 
-                final LinearLayout lltPart = oPlaySettingView.findViewById(R.id.lltParts);
-                final LinearLayout lltTime = oPlaySettingView.findViewById(R.id.lltTime);
-                final NumberPicker pkr_play_setting_n_part = oPlaySettingView.findViewById(R.id.pkr_play_setting_n_part);
-                final NumberPicker tpk_play_setting_stop_time = oPlaySettingView.findViewById(R.id.pkr_play_setting_end_time);
+            tpk_play_setting_stop_time.setMaxValue(1440);
+            tpk_play_setting_stop_time.setMinValue(1);
+            tpk_play_setting_stop_time.setValue(oPlaySettingHandler.playSetting.getHours() * 60 + oPlaySettingHandler.playSetting.getMinutes());
+            tpk_play_setting_stop_time.setWrapSelectorWheel(true);
 
-                final TextView txt_play_setting_n_part_from_cur = oPlaySettingView.findViewById(R.id.txt_play_setting_n_part);
-                final TextView txt_play_setting_period_from_cur = oPlaySettingView.findViewById(R.id.txt_play_setting_end_time);
+            tpk_play_setting_stop_time.setOnValueChangedListener(new NumberPicker.OnValueChangeListener(){
+                @Override
+                public void onValueChange(NumberPicker picker, int oldVal, int newVal){
+                    chk_play_setting_period_from_cur.setText(String.format(getString(R.string.s_res_play_setting_period), (newVal / 60), newVal % 60));
+                }
+            });
 
-                chg_play_setting.setOnCheckedChangeListener( new RadioGroup.OnCheckedChangeListener(){
-                    @Override
-                    public void onCheckedChanged (RadioGroup group, int checkedId){
-                        if (checkedId == R.id.chk_play_setting_num_of_part) {
-                            pkr_play_setting_n_part.setEnabled(true);
-                            txt_play_setting_n_part_from_cur.setEnabled(true);
-                            lltPart.setVisibility(View.VISIBLE);
+            oDialogBuild.setView(oPlaySettingView);
 
-                            tpk_play_setting_stop_time.setEnabled(false);
-                            txt_play_setting_period_from_cur.setEnabled(false);
-                            lltTime.setVisibility(View.GONE);
-                        } else if (checkedId == R.id.chk_play_setting_period) {
-                            pkr_play_setting_n_part.setEnabled(false);
-                            txt_play_setting_n_part_from_cur.setEnabled(false);
-                            lltPart.setVisibility(View.GONE);
+            oDialogBuild.setPositiveButton(getString(R.string.s_res_button_save_schedule), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // here you can add functions
+                    oPlaySettingHandler.setIPlayingMode(chk_play_setting_until_end_part.isChecked(), chk_play_setting_period_from_cur.isChecked(), chk_play_setting_n_part_from_cur.isChecked());
+                    oPlaySettingHandler.playSetting.setParts(pkr_play_setting_n_part.getValue());
+                    oPlaySettingHandler.playSetting.setHours(tpk_play_setting_stop_time.getValue() / 60);
+                    oPlaySettingHandler.playSetting.setMinutes(tpk_play_setting_stop_time.getValue() % 60);
+                    oPlaySettingHandler.startCounterValue();
+                    oPlaySettingHandler.setIStartPartIndex(oPlayingInfoHandler.playingInfo.getCurPartIndex());
+                    savePrefSetting(true);
+                    if(!oPlaySettingHandler.isPlayWithoutPlan()) {
+                        tbnPlayPlan.setImageResource(R.drawable.ic_btn_plan_on);
+                    }else{
+                        tbnPlayPlan.setImageResource(R.drawable.ic_btn_plan_off);
+                    }
 
-                            tpk_play_setting_stop_time.setEnabled(true);
-                            txt_play_setting_period_from_cur.setEnabled(true);
-                            lltTime.setVisibility(View.VISIBLE);
+                    if(!oPlaySettingHandler.isValidModeForRepeat()) {
+                        tbnRepeat.setVisibility(View.GONE);
+                    }else{
+                        tbnRepeat.setVisibility(View.VISIBLE);
+                        if(oPlaySettingHandler.playSetting.getRepeat()) {
+                            tbnRepeat.setImageResource(R.drawable.baseline_repeat_white_24);
                         }else{
-                            pkr_play_setting_n_part.setEnabled(false);
-                            txt_play_setting_n_part_from_cur.setEnabled(false);
-                            lltPart.setVisibility(View.GONE);
-
-                            tpk_play_setting_stop_time.setEnabled(false);
-                            txt_play_setting_period_from_cur.setEnabled(false);
-                            lltTime.setVisibility(View.GONE);
+                            tbnRepeat.setImageResource(R.drawable.baseline_repeat_black_24);
                         }
                     }
-                });
+                }
+            });
+            oDialogBuild.setNeutralButton(getString(R.string.s_res_button_cancel), new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    // here you can add functions
+                }
+            });
 
-                chk_play_setting_only_selected.setChecked(oPlaySettingHandler.isPlayWithoutPlan());
-                chk_play_setting_n_part_from_cur.setChecked(oPlaySettingHandler.isPlayNPartFromCur());
-                chk_play_setting_n_part_from_cur.setText(String.format(getString(R.string.s_res_play_setting_num_of_part), oPlaySettingHandler.playSetting.getParts()));
-                chk_play_setting_until_end_part.setChecked(oPlaySettingHandler.isPlayUntilEndPart());
-                chk_play_setting_period_from_cur.setChecked(oPlaySettingHandler.isPlayPeriodFromCur());
-                chk_play_setting_period_from_cur.setText(String.format(getString(R.string.s_res_play_setting_period), oPlaySettingHandler.playSetting.getHours(), oPlaySettingHandler.playSetting.getMinutes()));
-
-                pkr_play_setting_n_part.setMaxValue(oPlayingInfoHandler.getMaxNPart());
-                pkr_play_setting_n_part.setMinValue(1);
-                pkr_play_setting_n_part.setValue(oPlaySettingHandler.playSetting.getParts());
-                pkr_play_setting_n_part.setWrapSelectorWheel(true);
-
-                pkr_play_setting_n_part.setOnValueChangedListener( new NumberPicker.OnValueChangeListener() {
-                    @Override
-                    public void onValueChange(NumberPicker picker, int oldVal, int newVal){
-                        chk_play_setting_n_part_from_cur.setText(String.format(getString(R.string.s_res_play_setting_num_of_part), newVal));
-                    }
-                });
-
-                tpk_play_setting_stop_time.setMaxValue(1440);
-                tpk_play_setting_stop_time.setMinValue(1);
-                tpk_play_setting_stop_time.setValue(oPlaySettingHandler.playSetting.getHours() * 60 + oPlaySettingHandler.playSetting.getMinutes());
-                tpk_play_setting_stop_time.setWrapSelectorWheel(true);
-
-                tpk_play_setting_stop_time.setOnValueChangedListener(new NumberPicker.OnValueChangeListener(){
-                    @Override
-                    public void onValueChange(NumberPicker picker, int oldVal, int newVal){
-                        chk_play_setting_period_from_cur.setText(String.format(getString(R.string.s_res_play_setting_period), (newVal / 60), newVal % 60));
-                    }
-                });
-
-                oDialogBuild.setView(oPlaySettingView);
-
-                oDialogBuild.setPositiveButton(getString(R.string.s_res_button_save_schedule), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // here you can add functions
-                        oPlaySettingHandler.setIPlayingMode(chk_play_setting_until_end_part.isChecked(), chk_play_setting_period_from_cur.isChecked(), chk_play_setting_n_part_from_cur.isChecked());
-                        oPlaySettingHandler.playSetting.setParts(pkr_play_setting_n_part.getValue());
-                        oPlaySettingHandler.playSetting.setHours(tpk_play_setting_stop_time.getValue() / 60);
-                        oPlaySettingHandler.playSetting.setMinutes(tpk_play_setting_stop_time.getValue() % 60);
-                        oPlaySettingHandler.startCounterValue();
-                        oPlaySettingHandler.setIStartPartIndex(oPlayingInfoHandler.playingInfo.getCurPartIndex());
-                        savePrefSetting(true);
-                        if(!oPlaySettingHandler.isPlayWithoutPlan()) {
-                            tbnPlayPlan.setImageResource(R.drawable.ic_btn_plan_on);
-                        }else{
-                            tbnPlayPlan.setImageResource(R.drawable.ic_btn_plan_off);
-                        }
-
-                        if(!oPlaySettingHandler.isValidModeForRepeat()) {
-                            tbnRepeat.setVisibility(View.GONE);
-                        }else{
-                            tbnRepeat.setVisibility(View.VISIBLE);
-                            if(oPlaySettingHandler.playSetting.getRepeat()) {
-                                tbnRepeat.setImageResource(R.drawable.baseline_repeat_white_24);
-                            }else{
-                                tbnRepeat.setImageResource(R.drawable.baseline_repeat_black_24);
-                            }
-                        }
-                    }
-                });
-                oDialogBuild.setNeutralButton(getString(R.string.s_res_button_cancel), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // here you can add functions
-                    }
-                });
-
-                AlertDialog adlgPlaySetting = oDialogBuild.create();
-                adlgPlaySetting.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-                adlgPlaySetting.show();
-                adlgPlaySetting.getWindow().getDecorView().setSystemUiVisibility(getWindow().getDecorView().getSystemUiVisibility());
-                adlgPlaySetting.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-                break;
+            AlertDialog adlgPlaySetting = oDialogBuild.create();
+            adlgPlaySetting.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+            adlgPlaySetting.show();
+            adlgPlaySetting.getWindow().getDecorView().setSystemUiVisibility(getWindow().getDecorView().getSystemUiVisibility());
+            adlgPlaySetting.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
         }
     }
 
@@ -889,40 +880,34 @@ public class PlayingListActivity extends Activity implements OnClickListener, Au
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        switch ( item.getItemId() )
-        {
-            case android.R.id.home:
-                this.finish();
-                break;
-            case R.id.itm_menu_clean:
-                final CleanUpFileStorageService oCleanUpFileStorageService = new CleanUpFileStorageService();
-                oCleanUpFileStorageService.oITaskCompleted = new CleanUpFileStorageService.OnTaskCompleted() {
-                    @Override
-                    public void onTaskCompleted(boolean bResult) {
-                        if(bResult){
-                            if(audioPartAdapter != null){
-                                audioPartAdapter.notifyDataSetChanged();
-                            }
-                            Toasty.success(PlayingListActivity.this,getString(R.string.s_res_mess_clean_ok),Toast.LENGTH_SHORT, true).show();
-                        }else{
-                            Toasty.error(PlayingListActivity.this,getString(R.string.s_res_mess_clean_fail),Toast.LENGTH_SHORT, true).show();
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+        } else if (item.getItemId() == R.id.itm_menu_clean) {
+            final CleanUpFileStorageService oCleanUpFileStorageService = new CleanUpFileStorageService();
+            oCleanUpFileStorageService.oITaskCompleted = new CleanUpFileStorageService.OnTaskCompleted() {
+                @Override
+                public void onTaskCompleted(boolean bResult) {
+                    if(bResult){
+                        if(audioPartAdapter != null){
+                            audioPartAdapter.notifyDataSetChanged();
                         }
+                        Toasty.success(PlayingListActivity.this,getString(R.string.s_res_mess_clean_ok),Toast.LENGTH_SHORT, true).show();
+                    }else{
+                        Toasty.error(PlayingListActivity.this,getString(R.string.s_res_mess_clean_fail),Toast.LENGTH_SHORT, true).show();
                     }
-                };
-                oCleanUpFileStorageService.execute();
-                break;
-            case R.id.itm_menu_rate:
-                Uri uri = Uri.parse(String.format(DefSetting.gGoogleStoreUrl, this.getPackageName() ));
-                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
-                try {
-                    startActivity(goToMarket);
-                } catch (ActivityNotFoundException e) {
-                    e.printStackTrace();
                 }
-                break;
-            default:
-                break;
+            };
+            oCleanUpFileStorageService.execute();
+        } else if (item.getItemId() == R.id.itm_menu_rate) {
+            Uri uri = Uri.parse(String.format(DefSetting.gGoogleStoreUrl, this.getPackageName() ));
+            Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+            try {
+                startActivity(goToMarket);
+            } catch (ActivityNotFoundException e) {
+                e.printStackTrace();
+            }
         }
+
         if(BuildConfig.enableDebugLogging) {
             Log.i(TAG, "onOptionsItemSelected");
         }

@@ -25,7 +25,6 @@ import com.sectic.sbookau.model.BookList;
 import com.sectic.sbookau.service.GetBookFromCloudService;
 import com.sectic.sbookau.service.GetBookHistoryFromFileService;
 import com.sectic.sbookau.icallback.OnItemClickListener;
-import com.sectic.sbookau.ultils.DefSetting;
 
 public class BookListFragment extends Fragment {
     public static final String TAG = BookListFragment.class.getSimpleName();

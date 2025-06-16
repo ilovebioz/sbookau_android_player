@@ -185,7 +185,8 @@ public class SplashActivity extends Activity implements EasyPermissions.Permissi
                     GetCatThread();
                     AppProvider.mIsFirstAuth = true;
                 }else{
-                    if( DefSetting.gSystemMessage == null || DefSetting.gSystemMessage.length() <= 0 ){
+                    if( (DefSetting.gSystemMessage == null) ||
+                            (DefSetting.gSystemMessage.length() <= 0) ){
                         Toasty.error(SplashActivity.this, getString(R.string.s_res_mess_connect_fail), Toast.LENGTH_SHORT, true).show();
                     }
                 }
