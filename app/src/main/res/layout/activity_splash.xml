@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:keepScreenOn="true"
+    android:fitsSystemWindows="true"
     tools:context="com.sectic.sbookau.SplashActivity">
     <SurfaceView
         android:layout_width="0px"

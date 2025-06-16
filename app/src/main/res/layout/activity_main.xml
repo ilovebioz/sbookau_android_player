@@ -1,13 +1,14 @@
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawer_layout"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!--What ever your want in center of screen, put it in  here -->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <!-- Framelayout to display Fragments -->
+        <!-- Frame layout to display Fragments -->
         <FrameLayout
             android:id="@+id/frm_container"
             android:layout_width="match_parent"
@@ -253,9 +254,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/color_res_main_list_divider"/>
-            <View
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="3dp" />
+                android:padding="3dp"
+                android:textColor="@color/colorAccent"
+                android:gravity="center"
+                android:text="@string/s_res_copyright"
+                android:layout_height="wrap_content"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

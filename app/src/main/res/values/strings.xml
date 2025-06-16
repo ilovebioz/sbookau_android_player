@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Sách Nói B4U</string>
-    <string name="s_res_ieev_website">www.ieev.org</string>
+    <string name="s_res_copyright">Made with \u2665 by S3LAB.</string>
     <string name="s_res_prefs_name">sbookau</string>
     <string name="s_res_history">Lịch Sử Nghe</string>
 

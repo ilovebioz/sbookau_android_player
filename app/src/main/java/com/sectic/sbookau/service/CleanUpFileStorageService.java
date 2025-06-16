@@ -41,7 +41,6 @@ public class CleanUpFileStorageService extends AsyncTask<Void, Integer, Boolean 
     protected Boolean doInBackground(Void... params)
     {
         try {
-            FileUtils.CleanAllFileInExternalStorage();
             String sInternal = AppProvider.getContext().getFilesDir().getAbsolutePath();
             File f = new File(sInternal);
             FileUtils.CleanAllMediaFileInInternalStorage(f);

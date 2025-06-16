@@ -8,7 +8,6 @@ import com.sectic.sbookau.adapter.AudioPartAdapter;
 import com.sectic.sbookau.ultils.AppProvider;
 import com.sectic.sbookau.ultils.FileUtils;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -17,7 +16,6 @@ import es.dmoral.toasty.Toasty;
 import okhttp3.ResponseBody;
 
 import static android.content.Context.MODE_PRIVATE;
-import static com.sectic.sbookau.ultils.FileUtils.generateExternalFilePath;
 
 /**
  * Created by bioz on 9/18/2014.
@@ -82,34 +80,7 @@ public class DownloadFileFromCloudService extends AsyncTask<ResponseBody, Intege
             long lFileSizeDownloaded = 0;
             int iReadByte;
 
-            if(FileUtils.isPossibleToUseExternalStorage()){
-                String iSFilePath = generateExternalFilePath(sFileName, true);
-                File oFile = new File(iSFilePath);
-                if (!oFile.exists()) {
-                    oFile.createNewFile();
-                }
-                oOutStream = new FileOutputStream(oFile, false);
-
-                while (true) {
-                    iReadByte = inputStream.read(contentInBytes);
-                    if( iReadByte == -1 || lFileSizeDownloaded >= lFileSize){
-                        if(lFileSizeDownloaded == lFileSize){
-                            bResult = true;
-                        }
-                        break;
-                    }
-                    oOutStream.write(contentInBytes, 0, iReadByte);
-                    lFileSizeDownloaded += iReadByte;
-
-                    iCurPercent = (int)((float)lFileSizeDownloaded / fPercentPart);
-                    if(iCurPercent > iPrePercent){
-                        iPrePercent = iCurPercent;
-                        publishProgress(iCurPercent);
-                    }
-                }
-
-                oOutStream.flush();
-            }else if(FileUtils.isPossibleToUseInternalStorage()){
+            if(FileUtils.isPossibleToUseInternalStorage()){
                 oOutStream = AppProvider.getContext().openFileOutput(sFileName, MODE_PRIVATE);
 
                 while (true) {
@@ -129,7 +100,6 @@ public class DownloadFileFromCloudService extends AsyncTask<ResponseBody, Intege
                         publishProgress(iCurPercent);
                     }
                 }
-
                 oOutStream.flush();
             }
             return bResult;

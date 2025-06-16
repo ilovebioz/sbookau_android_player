@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.WindowCompat;
 
 import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.github.ybq.android.spinkit.SpinKitView;
@@ -44,8 +45,6 @@ public class SplashActivity extends Activity implements EasyPermissions.Permissi
 
     private static final int RC_FULL_PERM = 124;
     private static final String[] PERMISSIONS = {
-            android.Manifest.permission.READ_EXTERNAL_STORAGE,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
             android.Manifest.permission.INTERNET,
             android.Manifest.permission.READ_PHONE_STATE
     };
@@ -204,6 +203,7 @@ public class SplashActivity extends Activity implements EasyPermissions.Permissi
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.activity_splash);
         initViews();
         requestFullPermissionTask();

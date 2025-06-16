@@ -11,6 +11,8 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+
+import androidx.core.view.WindowCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,7 +55,6 @@ import com.sectic.sbookau.service.GetAudioPartFromCloudService;
 import com.sectic.sbookau.ultils.BaseUtils;
 import com.sectic.sbookau.ultils.DefSetting;
 import com.sectic.sbookau.ultils.FileUtils;
-import com.sectic.sbookau.R;
 
 
 public class PlayingListActivity extends Activity implements OnClickListener, AudioManager.OnAudioFocusChangeListener {
@@ -143,6 +144,7 @@ public class PlayingListActivity extends Activity implements OnClickListener, Au
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         setContentView(R.layout.activity_audio_part_list);
 
         mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
@@ -604,13 +606,8 @@ public class PlayingListActivity extends Activity implements OnClickListener, Au
             String sFileLocalPath = FileUtils.generateInternalFilePath(this, audioPartAdapter.getDataList().get(oPlayingInfoHandler.playingInfo.getCurPartIndex()).GetMediaFileName());
             oPlayingInfoHandler.playingInfo.setBookPartFileInInternal(sFileLocalPath);
 
-            sFileLocalPath = FileUtils.generateExternalFilePath(audioPartAdapter.getDataList().get(oPlayingInfoHandler.playingInfo.getCurPartIndex()).GetMediaFileName(), false);
-            oPlayingInfoHandler.playingInfo.setBookPartFileInExternal(sFileLocalPath);
-
             if (FileUtils.checkAFileAvailable(oPlayingInfoHandler.playingInfo.getBookPartFileInInternal())) {
                 createMediaPlayer(oPlayingInfoHandler.playingInfo.getBookPartFileInInternal());
-            } else if (FileUtils.checkAFileAvailable(oPlayingInfoHandler.playingInfo.getBookPartFileInExternal())) {
-                createMediaPlayer(oPlayingInfoHandler.playingInfo.getBookPartFileInExternal());
             } else {
                 createMediaPlayer(oPlayingInfoHandler.playingInfo.getBookPartUrl());
             }

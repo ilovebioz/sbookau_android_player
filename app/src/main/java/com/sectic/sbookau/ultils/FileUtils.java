@@ -27,33 +27,6 @@ import static android.content.Context.MODE_PRIVATE;
  */
 
 public class FileUtils {
-    public static String readJsonFromExternalFile (String iSFilePath){
-        String sJson = null;
-        FileInputStream oInStream = null;
-        try {
-            File oFile = new File(iSFilePath);
-            if(oFile.exists()) {
-                oInStream = new FileInputStream(oFile);
-                FileChannel oFileChannel = oInStream.getChannel();
-                MappedByteBuffer oByteBuff = oFileChannel.map(FileChannel.MapMode.READ_ONLY, 0, oFileChannel.size());
-                sJson = Charset.defaultCharset().decode(oByteBuff).toString();
-                oInStream.close();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }finally {
-            try {
-                if (oInStream != null) {
-                    oInStream.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                return sJson;
-            }
-        }
-    }
-
     public static String readJsonFromInternalFile (Context iOContext, String iSFileName){
         String sJson = null;
         FileInputStream oInStream = null;
@@ -77,37 +50,6 @@ public class FileUtils {
                 e.printStackTrace();
             } finally {
                 return sJson;
-            }
-        }
-    }
-
-    public static boolean writeJsonToExternalFile(String iSFilePath, String iSData, boolean iBAppend) {
-        FileOutputStream oOutStream = null;
-
-        File oFile;
-        boolean bResult = false;
-        try {
-            oFile = new File(iSFilePath);
-            if (!oFile.exists()) {
-                oFile.createNewFile();
-            }
-            oOutStream = new FileOutputStream(oFile, iBAppend);
-            byte[] contentInBytes = iSData.getBytes();
-            oOutStream.write(contentInBytes);
-            oOutStream.flush();
-            oOutStream.close();
-            bResult = true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (oOutStream != null) {
-                    oOutStream.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                return bResult;
             }
         }
     }
@@ -166,53 +108,8 @@ public class FileUtils {
         }
     }
 
-    public static boolean writeInputStreamToExternalFile(String iSFileName, boolean iBAppend, InputStream... iInStream) {
-        InputStream inputStream = iInStream[0];
-        FileOutputStream oOutStream = null;
-
-        String iSFilePath = generateExternalFilePath(iSFileName, true);
-        File oFile;
-        boolean bResult = false;
-        try {
-            oFile = new File(iSFilePath);
-            if (!oFile.exists()) {
-                oFile.createNewFile();
-            }
-            oOutStream = new FileOutputStream(oFile, iBAppend);
-            byte[] contentInBytes = new byte[1024];
-            int iReadByte;
-            while ((iReadByte = inputStream.read(contentInBytes)) != -1) {
-                oOutStream.write(contentInBytes, 0, iReadByte);
-            }
-            oOutStream.flush();
-            bResult = true;
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (oOutStream != null) {
-                    oOutStream.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                return bResult;
-            }
-        }
-    }
-
     public static String generateInternalFilePath(Activity iOActivity, String iSFileName){
         return iOActivity.getFilesDir().getAbsolutePath() + "/" + iSFileName;
-    }
-
-    public static String generateExternalFilePath(String iSFileName, boolean iBCreateFolder){
-        String sRootFolder = Environment.getExternalStorageDirectory()+ DefSetting.gSSBookAuSDRoot;
-
-        File f = new File(sRootFolder);
-        if (!f.exists() && iBCreateFolder) {
-            f.mkdirs();
-        }
-        return sRootFolder + "/" + iSFileName;
     }
 
     public static boolean checkAFileAvailable(String iSFilePath) {
@@ -243,64 +140,12 @@ public class FileUtils {
         return bResult;
     }
 
-    public static boolean isPossibleToUseExternalStorage()
-    {
-        boolean bResult = true;
-
-        boolean mExternalStorageAvailable = false;
-        boolean mExternalStorageWriteable = false;
-        String state = Environment.getExternalStorageState();
-
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            mExternalStorageAvailable = mExternalStorageWriteable = true;
-        } else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-            mExternalStorageAvailable = true;
-            mExternalStorageWriteable = false;
-            bResult = false;
-        } else {
-            mExternalStorageAvailable = mExternalStorageWriteable = false;
-            bResult = false;
-        }
-
-        if(bResult){
-            StatFs stat = new StatFs(Environment.getExternalStorageDirectory().getPath());
-            float mBAvailable = (long)stat.getFreeBytes() / (1024.f * 1024.f);
-            if(mBAvailable < 1024){
-                bResult = false;
-            }
-        }
-        return bResult;
-    }
-
     public static void DeleteLocalFile(Activity iOActivity, String iSFileName){
         try {
             String sInternalPath = generateInternalFilePath(iOActivity, iSFileName);
-            String sExternalPath = generateExternalFilePath(iSFileName, false);
             File oInternalFile = new File(sInternalPath);
             if (oInternalFile.exists()) {
                 oInternalFile.delete();
-            }
-
-            File oExternalFile = new File(sExternalPath);
-            if (oExternalFile.exists()) {
-                oExternalFile.delete();
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public static void CleanAllFileInExternalStorage(){
-        try {
-            String sRootFolder = Environment.getExternalStorageDirectory()+ DefSetting.gSSBookAuSDRoot;
-            File dir = new File( sRootFolder );
-            if (dir.isDirectory())
-            {
-                String[] children = dir.list();
-                for (int i = 0; i < children.length; i++)
-                {
-                    new File(dir, children[i]).delete();
-                }
             }
         }catch(Exception e){
             e.printStackTrace();

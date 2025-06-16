@@ -390,8 +390,7 @@ public class AudioPartAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             txt_audio_part_length.setText( sTime );
 
             String sFilePathInInternal = FileUtils.generateInternalFilePath( mContext, bookPart.GetMediaFileName());
-            String sFilePathInExternal = FileUtils.generateExternalFilePath(bookPart.GetMediaFileName(), false);
-            if( (FileUtils.checkAFileAvailable(sFilePathInInternal) || FileUtils.checkAFileAvailable(sFilePathInExternal)) && bookPart.iDownloadProgress <= 0){
+            if( FileUtils.checkAFileAvailable(sFilePathInInternal) && bookPart.iDownloadProgress <= 0){
                 btnDelete.setVisibility(View.VISIBLE);
             }else{
                 btnDelete.setVisibility(View.GONE);

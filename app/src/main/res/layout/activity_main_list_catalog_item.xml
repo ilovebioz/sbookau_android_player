@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     android:paddingBottom="6dp"
     android:paddingTop="6dp"
+    android:fitsSystemWindows="true"
     android:background="@drawable/main_list_catalog_item_selector">
 
     <ImageView
@@ -12,6 +13,7 @@
         android:layout_height="18dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="12dp"
+        android:contentDescription="category item icon"
         android:gravity="center_vertical" />
 
     <TextView

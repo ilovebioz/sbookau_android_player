@@ -17,8 +17,13 @@ android {
     defaultConfig {
         applicationId "com.sectic.sbookau" // replace with your actual ID
         minSdk 21
+        targetSdk 35
         versionCode 63
         versionName "3.5"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     buildFeatures {
         buildConfig = true
@@ -26,11 +31,14 @@ android {
     buildTypes {
         debug {
             buildConfigField "boolean", "enableDebugLogging", "true"
+            debuggable true
         }
         release {
             buildConfigField "boolean", "enableDebugLogging", "false"
-            minifyEnabled false
+            minifyEnabled true
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
